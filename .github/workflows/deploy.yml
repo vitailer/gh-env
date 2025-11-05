@@ -5,16 +5,17 @@ on:
       - master
       - main
       - dev
-# defining variable on workflow leve
+# defining variable on workflow level
 env:
   MONGODB_DB_NAME: gha-demo
 jobs:
   test:
-    # defining variable on job leve
+    # defining variable on job level
     env:
       MONGODB_CLUSTER_ADDRESS: cluster0.sk4r3bj.mongodb.net
-      MONGODB_USERNAME: vmendelcuk
-      MONGODB_PASSWORD: pigmalion1005
+      # values stored in the repository in actions as a secrets variable
+      MONGODB_USERNAME: ${{ secrets.MONGODB_USERNAME}}
+      MONGODB_PASSWORD: ${{ secrets.MONGODB_PASSWORD}}
       PORT: 8080
     environment: testing
     runs-on: ubuntu-latest
@@ -40,6 +41,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Output information
-        run: |        
+        run: | # MONGODB_USERNAME will not be aviable
           echo "MONGODB_USERNAME: ${{env.MONGODB_USERNAME}}"
           echo "MONGODB_DB_NAME: ${{env.MONGODB_DB_NAME}}"
