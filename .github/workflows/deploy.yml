@@ -10,6 +10,10 @@ env:
   MONGODB_DB_NAME: gha-demo
 jobs:
   test:
+    # instead of using secrets for general repository
+    # we are using secrets for specific environment with its own variables
+    # for different jobs we can use different environments
+    environment: testing
     # defining variable on job level
     env:
       MONGODB_CLUSTER_ADDRESS: cluster0.sk4r3bj.mongodb.net
@@ -17,7 +21,6 @@ jobs:
       MONGODB_USERNAME: ${{ secrets.MONGODB_USERNAME}}
       MONGODB_PASSWORD: ${{ secrets.MONGODB_PASSWORD}}
       PORT: 8080
-    environment: testing
     runs-on: ubuntu-latest
     steps:
       - name: Get Code
